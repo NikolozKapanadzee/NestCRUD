@@ -10,8 +10,22 @@ import {
 @Injectable()
 export class UsersService {
   private users = [
-    { id: 1, name: 'user1', email: 'user1@gmail.com' },
-    { id: 2, name: 'user2', email: 'user2@gmail.com' },
+    {
+      id: 1,
+      firstName: 'user1',
+      lastName: 'useradze',
+      email: 'user1@gmail.com',
+      phoneNumber: 555111922,
+      gender: 'male',
+    },
+    {
+      id: 2,
+      firstName: 'user2',
+      lastName: 'useradze2',
+      email: 'user2@gmail.com',
+      phoneNumber: 555910282,
+      gender: 'female',
+    },
   ];
   getAllUsers() {
     return this.users;
@@ -20,8 +34,14 @@ export class UsersService {
     const user = this.users.find((el) => el.id === id);
     return user;
   }
-  createUser({ email, name }: CreateUserDto) {
-    if (!email || !name) {
+  createUser({
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    gender,
+  }: CreateUserDto) {
+    if (!firstName || !lastName || !email || !phoneNumber || !gender) {
       throw new HttpException(
         'name and email is required',
         HttpStatus.BAD_REQUEST,
@@ -30,8 +50,11 @@ export class UsersService {
     const lastId = this.users[this.users.length - 1]?.id || 0;
     const newUser = {
       id: lastId + 1,
-      name,
+      firstName,
+      lastName,
       email,
+      phoneNumber,
+      gender,
     };
     this.users.push(newUser);
     return 'created succesfully';
@@ -53,8 +76,17 @@ export class UsersService {
     if (UpdateUserDto.email) {
       updateReq.email = UpdateUserDto.email;
     }
-    if (UpdateUserDto.name) {
-      updateReq.name = UpdateUserDto.name;
+    if (UpdateUserDto.firstName) {
+      updateReq.firstName = UpdateUserDto.firstName;
+    }
+    if (UpdateUserDto.lastName) {
+      updateReq.lastName = UpdateUserDto.lastName;
+    }
+    if (UpdateUserDto.phoneNumber) {
+      updateReq.phoneNumber = UpdateUserDto.phoneNumber;
+    }
+    if (UpdateUserDto.gender) {
+      updateReq.gender = UpdateUserDto.gender;
     }
     this.users[index] = {
       ...this.users[index],
