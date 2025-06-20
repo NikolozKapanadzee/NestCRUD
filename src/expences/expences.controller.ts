@@ -9,17 +9,24 @@ import {
   Post,
   Delete,
   Put,
+  ParseIntPipe,
+  Query,
 } from '@nestjs/common';
+import { CategoryPipe } from './pipes/category.pipe';
 
 @Controller('expences')
 export class ExpencesController {
   constructor(private ExpencesService: ExpencesService) {}
   @Get()
-  getAllExpences() {
+  getAllExpences(
+    @Query('category', new CategoryPipe()) category,
+    @Query('priceFrom', ParseIntPipe) priceFrom,
+  ) {
+    console.log(category, priceFrom);
     return this.ExpencesService.getAllExpences();
   }
   @Get(':id')
-  getExpenceById(@Param('id') id) {
+  getExpenceById(@Param('id', ParseIntPipe) id) {
     console.log(id, 'id');
     return this.ExpencesService.getExpenceById(Number(id));
   }
@@ -37,11 +44,14 @@ export class ExpencesController {
     });
   }
   @Delete(':id')
-  deleteExpenceById(@Param('id') id) {
+  deleteExpenceById(@Param('id', ParseIntPipe) id) {
     return this.ExpencesService.deleteUserById(Number(id));
   }
   @Put(':id')
-  updateUserById(@Param('id') id, @Body() UpdateExpenceDto: UpdateExpenceDto) {
+  updateUserById(
+    @Param('id', ParseIntPipe) id,
+    @Body() UpdateExpenceDto: UpdateExpenceDto,
+  ) {
     return this.ExpencesService.updateUserById(Number(id), UpdateExpenceDto);
   }
 }
