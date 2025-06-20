@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { UpdateExpenceDto } from './dto/update-expence-dto';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateExpenceDto } from './dto/create-expence-dto';
 
 @Injectable()
@@ -58,5 +64,32 @@ export class ExpencesService {
     };
     this.expences.push(newExpence);
     return 'created successfully';
+  }
+  deleteUserById(id: number) {
+    const index = this.expences.findIndex((el) => el.id === id);
+    if (index === -1) {
+      throw new NotFoundException('user not found');
+    }
+    this.expences.splice(index, 1);
+    return 'deleted succesfully';
+  }
+  updateUserById(id: number, UpdateExpenceDto: UpdateExpenceDto) {
+    const index = this.expences.findIndex((el) => el.id === id);
+    if (index === -1) {
+      throw new NotFoundException('user not found');
+    }
+    if (UpdateExpenceDto.category) {
+      this.expences[index].category = UpdateExpenceDto.category;
+    }
+    if (UpdateExpenceDto.productName) {
+      this.expences[index].productName = UpdateExpenceDto.productName;
+    }
+    if (UpdateExpenceDto.price) {
+      this.expences[index].price = UpdateExpenceDto.price;
+    }
+    if (UpdateExpenceDto.quantity) {
+      this.expences[index].quantity = UpdateExpenceDto.quantity;
+    }
+    return 'updated succesfully';
   }
 }

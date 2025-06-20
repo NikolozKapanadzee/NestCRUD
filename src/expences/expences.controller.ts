@@ -1,6 +1,15 @@
 import { CreateExpenceDto } from './dto/create-expence-dto';
+import { UpdateExpenceDto } from './dto/update-expence-dto';
 import { ExpencesService } from './expences.service';
-import { Controller, Get, Param, Body, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Body,
+  Post,
+  Delete,
+  Put,
+} from '@nestjs/common';
 
 @Controller('expences')
 export class ExpencesController {
@@ -26,5 +35,13 @@ export class ExpencesController {
       quantity,
       price,
     });
+  }
+  @Delete(':id')
+  deleteExpenceById(@Param('id') id) {
+    return this.ExpencesService.deleteUserById(Number(id));
+  }
+  @Put(':id')
+  updateUserById(@Param('id') id, @Body() UpdateExpenceDto: UpdateExpenceDto) {
+    return this.ExpencesService.updateUserById(Number(id), UpdateExpenceDto);
   }
 }
