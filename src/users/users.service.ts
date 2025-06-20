@@ -43,7 +43,7 @@ export class UsersService {
   }: CreateUserDto) {
     if (!firstName || !lastName || !email || !phoneNumber || !gender) {
       throw new HttpException(
-        'name and email is required',
+        'all fields are required',
         HttpStatus.BAD_REQUEST,
       );
     }
