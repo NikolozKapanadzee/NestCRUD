@@ -1,6 +1,8 @@
 import { CreateExpenceDto } from './dto/create-expence-dto';
+import { QueryParamsDto } from './dto/query-params.dto';
 import { UpdateExpenceDto } from './dto/update-expence-dto';
 import { ExpencesService } from './expences.service';
+
 import {
   Controller,
   Get,
@@ -12,13 +14,13 @@ import {
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
-import { CategoryPipe } from './pipes/category.pipe';
 
 @Controller('expences')
 export class ExpencesController {
   constructor(private ExpencesService: ExpencesService) {}
   @Get()
-  getAllExpences() {
+  getAllExpences(@Query() { page, take }: QueryParamsDto) {
+    console.log(page, take, 'query');
     return this.ExpencesService.getAllExpences();
   }
   @Get(':id')

@@ -1,4 +1,5 @@
 import { CreateUserDto } from './dto/create-user.dto';
+import { QueryParamsDto } from './dto/query-params.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { UsersService } from './users.service';
 import {
@@ -10,13 +11,15 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 
 @Controller('users')
 export class UserController {
   constructor(private UsersService: UsersService) {}
   @Get()
-  getAllUsers() {
+  getAllUsers(@Query() { page, take }: QueryParamsDto) {
+    console.log(page, take, 'query');
     return this.UsersService.getAllUsers();
   }
   @Get(':id')
