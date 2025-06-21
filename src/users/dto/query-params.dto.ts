@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsIn, IsNumber, IsOptional, Max } from 'class-validator';
+import { IsIn, IsNumber, IsOptional, IsString, Max } from 'class-validator';
 
 export class QueryParamsDto {
   @IsOptional()
@@ -17,4 +17,8 @@ export class QueryParamsDto {
     message: 'must be male or female',
   })
   gender: string;
+
+  @IsOptional()
+  @IsString({ message: 'email must be a string' })
+  email: string;
 }

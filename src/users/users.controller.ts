@@ -19,8 +19,8 @@ export class UserController {
   constructor(private UsersService: UsersService) {}
   @Get()
   getAllUsers(@Query() query: QueryParamsDto) {
-    const { page, take, gender } = query;
-    console.log(page, take, gender, 'query');
+    const { page, take, gender, email } = query;
+    console.log(page, take, gender, email, 'query');
     return this.UsersService.getAllUsers(query);
   }
   @Get(':id')

@@ -35,6 +35,19 @@ export class UsersService {
         (user) => user.gender === queryParams.gender,
       );
     }
+    if (queryParams?.email) {
+      const existingEmail = this.users.find(
+        (user) => user.email === queryParams.email,
+      );
+      if (!existingEmail) {
+        throw new NotFoundException(
+          `email ${queryParams.email} does not exist`,
+        );
+      }
+      filteredUsers = filteredUsers.filter(
+        (user) => user.email === queryParams.email,
+      );
+    }
     return filteredUsers;
   }
   getUserById(id: Number) {
