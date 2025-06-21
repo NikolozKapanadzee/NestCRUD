@@ -119,7 +119,7 @@ export class ExpencesService {
   updateUserById(id: number, UpdateExpenceDto: UpdateExpenceDto) {
     const index = this.expences.findIndex((el) => el.id === id);
     if (index === -1) {
-      throw new NotFoundException('user not found');
+      throw new NotFoundException('expence not found');
     }
     if (UpdateExpenceDto.category) {
       this.expences[index].category = UpdateExpenceDto.category;
