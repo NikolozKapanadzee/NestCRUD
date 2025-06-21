@@ -18,11 +18,7 @@ import { CategoryPipe } from './pipes/category.pipe';
 export class ExpencesController {
   constructor(private ExpencesService: ExpencesService) {}
   @Get()
-  getAllExpences(
-    @Query('category', new CategoryPipe()) category,
-    @Query('priceFrom', ParseIntPipe) priceFrom,
-  ) {
-    console.log(category, priceFrom);
+  getAllExpences() {
     return this.ExpencesService.getAllExpences();
   }
   @Get(':id')
