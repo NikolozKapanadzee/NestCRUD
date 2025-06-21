@@ -6,6 +6,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { QueryParamsDto } from './dto/query-params.dto';
 
 @Injectable()
 export class UsersService {
@@ -27,8 +28,14 @@ export class UsersService {
       gender: 'female',
     },
   ];
-  getAllUsers() {
-    return this.users;
+  getAllUsers(queryParams: QueryParamsDto) {
+    let filteredUsers = this.users;
+    if (queryParams?.gender) {
+      filteredUsers = filteredUsers.filter(
+        (user) => user.gender === queryParams.gender,
+      );
+    }
+    return filteredUsers;
   }
   getUserById(id: Number) {
     const user = this.users.find((el) => el.id === id);

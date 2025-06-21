@@ -18,9 +18,10 @@ import {
 export class UserController {
   constructor(private UsersService: UsersService) {}
   @Get()
-  getAllUsers(@Query() { page, take }: QueryParamsDto) {
-    console.log(page, take, 'query');
-    return this.UsersService.getAllUsers();
+  getAllUsers(@Query() query: QueryParamsDto) {
+    const { page, take, gender } = query;
+    console.log(page, take, gender, 'query');
+    return this.UsersService.getAllUsers(query);
   }
   @Get(':id')
   getUserById(@Param('id', ParseIntPipe) id) {

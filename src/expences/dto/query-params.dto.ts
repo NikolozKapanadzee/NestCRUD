@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsIn, IsNumber, IsOptional, Max } from 'class-validator';
+import { IsIn, IsNumber, IsOptional } from 'class-validator';
 
 export class QueryParamsDto {
   @IsOptional()

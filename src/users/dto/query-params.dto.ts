@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsNumber, IsOptional, Max } from 'class-validator';
+import { IsIn, IsNumber, IsOptional, Max } from 'class-validator';
 
 export class QueryParamsDto {
   @IsOptional()
@@ -11,4 +11,10 @@ export class QueryParamsDto {
   @Transform(({ value }) => Math.min(Number(value), 30))
   @IsNumber()
   take: number = 30;
+
+  @IsOptional()
+  @IsIn(['male', 'female'], {
+    message: 'must be male or female',
+  })
+  gender: string;
 }
