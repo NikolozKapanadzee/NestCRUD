@@ -60,6 +60,22 @@ export class ExpencesService {
         (expense) => expense.category === queryParams.category,
       );
     }
+    //batono davit aq ver mivxvdi prices mixevdit gamefiltra tu totalPrices mixedvit da totalPrice avirchie sabolood
+    if (queryParams?.priceFrom && queryParams?.priceTo) {
+      filteredExpences = filteredExpences.filter(
+        (expense) =>
+          expense.totalPrice >= queryParams.priceFrom &&
+          expense.totalPrice <= queryParams.priceTo,
+      );
+    } else if (queryParams?.priceFrom) {
+      filteredExpences = filteredExpences.filter(
+        (expense) => expense.totalPrice >= queryParams.priceFrom,
+      );
+    } else if (queryParams?.priceTo) {
+      filteredExpences = filteredExpences.filter(
+        (expense) => expense.totalPrice <= queryParams.priceTo,
+      );
+    }
     return filteredExpences;
   }
   getExpenceById(id: Number) {

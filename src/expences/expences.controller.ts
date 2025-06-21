@@ -20,8 +20,8 @@ export class ExpencesController {
   constructor(private ExpencesService: ExpencesService) {}
   @Get()
   getAllExpences(@Query() query: QueryParamsDto) {
-    const { page, take, category } = query;
-    console.log(page, take, category, 'query');
+    const { page, take, category, priceFrom, priceTo } = query;
+    console.log(page, take, category, priceFrom, priceTo, 'query');
     return this.ExpencesService.getAllExpences(query);
   }
   @Get(':id')

@@ -15,4 +15,14 @@ export class QueryParamsDto {
   @IsOptional()
   @IsIn(['groceries', 'fun', 'technics'], { message: 'Unknown category' })
   category: string;
+
+  @IsOptional()
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  priceFrom: number;
+
+  @IsOptional()
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  priceTo: number;
 }
