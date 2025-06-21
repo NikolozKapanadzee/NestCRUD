@@ -19,9 +19,10 @@ import {
 export class ExpencesController {
   constructor(private ExpencesService: ExpencesService) {}
   @Get()
-  getAllExpences(@Query() { page, take }: QueryParamsDto) {
-    console.log(page, take, 'query');
-    return this.ExpencesService.getAllExpences();
+  getAllExpences(@Query() query: QueryParamsDto) {
+    const { page, take, category } = query;
+    console.log(page, take, category, 'query');
+    return this.ExpencesService.getAllExpences(query);
   }
   @Get(':id')
   getExpenceById(@Param('id', ParseIntPipe) id) {

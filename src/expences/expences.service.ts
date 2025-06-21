@@ -6,6 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateExpenceDto } from './dto/create-expence-dto';
+import { QueryParamsDto } from './dto/query-params.dto';
 
 @Injectable()
 export class ExpencesService {
@@ -30,10 +31,36 @@ export class ExpencesService {
         return this.quantity * this.price;
       },
     },
+    {
+      id: 3,
+      category: 'fun',
+      productName: 'beer',
+      quantity: 5,
+      price: 7,
+      get totalPrice() {
+        return this.quantity * this.price;
+      },
+    },
+    {
+      id: 4,
+      category: 'technics',
+      productName: 'computer',
+      quantity: 2,
+      price: 2250,
+      get totalPrice() {
+        return this.quantity * this.price;
+      },
+    },
   ];
 
-  getAllExpences() {
-    return this.expences;
+  getAllExpences(queryParams: QueryParamsDto) {
+    let filteredExpences = this.expences;
+    if (queryParams?.category) {
+      filteredExpences = filteredExpences.filter(
+        (expense) => expense.category === queryParams.category,
+      );
+    }
+    return filteredExpences;
   }
   getExpenceById(id: Number) {
     const expence = this.expences.find((el) => el.id === id);
